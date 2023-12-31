@@ -36,8 +36,14 @@ public class RoomServiceImpl implements IRoomService {
 		room.setRoomType(roomType);
 		room.setRoomPrice(roomPrice);
 		if (!photo.isEmpty()) {
-			String filePath = "D:\\Practice\\Hotel Booking Project\\Backend\\Image\\" + "_"
-					+ photo.getOriginalFilename();
+			String folderPath = "D:\\Practice\\Hotel Booking Project\\Backend\\Image\\";
+			String filePath = folderPath + "_" + photo.getOriginalFilename();
+			
+			// Create the directory if it doesn't exist
+			Path directoryPath = Paths.get(folderPath);
+			if (!Files.exists(directoryPath)) {
+				Files.createDirectories(directoryPath);
+			}
 			room.setPhotoPath(filePath);
 			Files.write(Paths.get(filePath), photo.getBytes());
 		}
